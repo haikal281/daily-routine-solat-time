@@ -1,0 +1,144 @@
+// --- GREETING & DATE ---
+const greeting = document.getElementById('greeting');
+const user = JSON.parse(localStorage.getItem('currentUser')) || { name: "Traveler" };
+greeting.textContent = `Welcome, ${user.name}!`;
+
+const today = new Date();
+document.getElementById('today-date').textContent = today.toDateString();
+
+// --- STREAK SYSTEM ---
+let streak = parseInt(localStorage.getItem('streak') || 0);
+const streakDisplay = document.getElementById('streakDisplay');
+function updateStreak(score) {
+  if (score === 100 && localStorage.getItem('completedToday') !== today.toDateString()) {
+    streak++;
+    localStorage.setItem('streak', streak);
+    localStorage.setItem('completedToday', today.toDateString());
+  }
+  streakDisplay.textContent = `🔥 Streak: ${streak} days`;
+}
+updateStreak(0);
+
+// --- MENU BUTTON TOGGLE ---
+const sidebar = document.getElementById('sidebar');
+const menuBtn = document.getElementById('menuBtn');
+const content = document.querySelector('.content');
+menuBtn.addEventListener('click', () => sidebar.classList.toggle('active'));
+content.addEventListener('click', () => {
+  if (sidebar.classList.contains('active')) sidebar.classList.remove('active');
+});
+
+// --- SIDEBAR NAVIGATION ---
+const navButtons = document.querySelectorAll('.nav-btn');
+const sections = document.querySelectorAll('.section');
+navButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.section;
+    navButtons.forEach(b => b.classList.remove('active'));
+    sections.forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(`${target}Section`).classList.add('active');
+  });
+});
+
+// --- FETCH SOLAT TIMES ---
+document.getElementById('fetchSolat').addEventListener('click', async () => {
+  const state = document.getElementById('stateSelect').value;
+  const solatList = document.getElementById('solatList');
+  solatList.innerHTML = "Fetching solat times...";
+
+  try {
+    const response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${state}&country=Malaysia`);
+    const data = await response.json();
+    const timings = data.data.timings;
+    solatList.innerHTML = "";
+    for (const [name, time] of Object.entries(timings)) {
+      if (["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"].includes(name)) {
+        const li = document.createElement("li");
+        li.textContent = `${name}: ${time}`;
+        solatList.appendChild(li);
+      }
+    }
+  } catch {
+    solatList.innerHTML = "Error loading solat times.";
+  }
+});
+
+// --- DAILY ROUTINE + CHART LOGIC ---
+const checkboxes = document.querySelectorAll('#routineList input[type="checkbox"]');
+const scoreDisplay = document.getElementById('disciplineScore');
+
+// Load or initialize performance history
+let performanceHistory = JSON.parse(localStorage.getItem('performanceHistory') || '[]');
+
+// Chart.js setup
+const ctx = document.getElementById('performanceChart').getContext('2d');
+const performanceChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: performanceHistory.map(e => e.date),
+    datasets: [{
+      label: 'Discipline Score',
+      data: performanceHistory.map(e => e.score),
+      borderColor: '#00ffcc',
+      backgroundColor: 'rgba(0,255,204,0.2)',
+      borderWidth: 3,
+      tension: 0.3,
+      fill: true
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+        ticks: { color: 'white' },
+        grid: { color: 'rgba(255,255,255,0.2)' }
+      },
+      x: {
+        ticks: { color: 'white' },
+        grid: { color: 'rgba(255,255,255,0.2)' }
+      }
+    },
+    plugins: {
+      legend: { labels: { color: 'white' } }
+    }
+  }
+});
+
+function updateChart() {
+  performanceChart.data.labels = performanceHistory.map(e => e.date);
+  performanceChart.data.datasets[0].data = performanceHistory.map(e => e.score);
+  performanceChart.update();
+}
+
+function updateScore() {
+  const total = checkboxes.length;
+  const completed = [...checkboxes].filter(cb => cb.checked).length;
+  const score = Math.round((completed / total) * 100);
+  scoreDisplay.textContent = `💪 Discipline Score: ${score}%`;
+  updateStreak(score);
+
+  const todayStr = today.toDateString();
+  const existing = performanceHistory.find(e => e.date === todayStr);
+  if (existing) {
+    existing.score = score;
+  } else {
+    performanceHistory.push({ date: todayStr, score });
+  }
+
+  localStorage.setItem('performanceHistory', JSON.stringify(performanceHistory));
+  updateChart();
+}
+
+checkboxes.forEach(cb => cb.addEventListener('change', updateScore));
+if (localStorage.getItem('completedToday') !== today.toDateString()) {
+  localStorage.removeItem('completedToday');
+}
+
+// --- LOGOUT ---
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.removeItem('currentUser');
+  alert('You have logged out successfully!');
+  window.location.href = 'daily-routine.html';
+});
