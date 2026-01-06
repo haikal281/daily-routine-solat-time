@@ -1,0 +1,54 @@
+// --- Auto redirect if user already logged in ---
+const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+if (currentUser) {
+  setTimeout(() => {
+    window.location.href = 'dashboard.html';
+  }, 500);
+}
+
+// --- Flip Logic ---
+const flipContainer = document.getElementById("flip-container");
+const toSignUp = document.getElementById("toSignUp");
+const toSignIn = document.getElementById("toSignIn");
+
+toSignUp.addEventListener("click", () => flipContainer.classList.add("flipped"));
+toSignIn.addEventListener("click", () => flipContainer.classList.remove("flipped"));
+
+// --- Sign Up ---
+const signUpBtn = document.getElementById('signUpBtn');
+signUpBtn.addEventListener('click', () => {
+  const name = document.getElementById('fullName').value.trim();
+  const username = document.getElementById('signUpUsername').value.trim();
+  const email = document.getElementById('signUpEmail').value.trim();
+  const password = document.getElementById('signUpPassword').value.trim();
+
+  if (!name || !username || !email || !password) return alert('Please fill in all fields.');
+
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  if (users.some(u => u.username === username)) return alert('Username already exists!');
+
+  users.push({ name, username, email, password });
+  localStorage.setItem('users', JSON.stringify(users));
+  alert('Account created successfully!');
+  flipContainer.classList.remove('flipped');
+});
+
+// --- Login ---
+const loginBtn = document.getElementById('loginBtn');
+loginBtn.addEventListener('click', () => {
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+
+  if (!username || !password) return alert('Please enter your username and password.');
+
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const user = users.find(u => u.username === username && u.password === password);
+
+  if (user) {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    alert(`Welcome back, ${user.name}!`);
+    window.location.href = 'dashboard.html';
+  } else {
+    alert('Invalid username or password.');
+  }
+});
