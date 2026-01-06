@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- ✅ Chart.js CDN -->
+</head>
+<body>
+  <header>
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <h1 id="greeting">Welcome!</h1>
+    <p id="today-date"></p>
+    <div id="streakContainer">
+      <span id="streakDisplay">🔥 Streak: 0 days</span>
+    </div>
+  </header>
+
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <h2>Navigation</h2>
+      <ul>
+        <li><button class="nav-btn active" data-section="solat">🕌 Solat Times</button></li>
+        <li><button class="nav-btn" data-section="routine">📅 Daily Routine</button></li>
+        <li><button class="nav-btn" data-section="performance">📈 Performance</button></li> <!-- ✅ New -->
+      </ul>
+      <button id="logoutBtn" class="logout">🚪 Logout</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+      <section id="solatSection" class="section active">
+        <h2>🕌 Solat Times (Malaysia)</h2>
+        <select id="stateSelect">
+          <option value="kuala-lumpur">Kuala Lumpur</option>
+          <option value="selangor">Selangor</option>
+          <option value="penang">Penang</option>
+          <option value="johor">Johor</option>
+          <option value="sabah">Sabah</option>
+          <option value="sarawak">Sarawak</option>
+        </select>
+        <button id="fetchSolat">Get Times</button>
+        <ul id="solatList"></ul>
+      </section>
+
+      <section id="routineSection" class="section">
+        <h2>📅 Daily Routine</h2>
+        <ul id="routineList">
+          <li><input type="checkbox"> Morning Exercise</li>
+          <li><input type="checkbox"> Breakfast</li>
+          <li><input type="checkbox"> Study/Work</li>
+          <li><input type="checkbox"> Lunch</li>
+          <li><input type="checkbox"> Asr Solat</li>
+          <li><input type="checkbox"> Evening Reflection</li>
+        </ul>
+        <p id="disciplineScore">💪 Discipline Score: 0%</p>
+      </section>
+
+      <!-- ✅ PERFORMANCE SECTION -->
+      <section id="performanceSection" class="section">
+        <h2>📈 Performance Overview</h2>
+        <canvas id="performanceChart" width="400" height="200"></canvas>
+        <p id="chartMessage">Tracking your daily discipline score over time.</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
