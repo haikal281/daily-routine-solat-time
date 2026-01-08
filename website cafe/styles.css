@@ -1,0 +1,124 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url("Cafe Ember Logo - Artisan Minimalism with Charcoal (2).png") no-repeat center center fixed;/* Page Background */
+    background-size: cover;
+    color: #F5E6CA;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: rgba(110, 84, 79, 0.85);
+    padding: 12px 20px;
+    backdrop-filter: blur(5px);
+}
+
+.navbar img {
+    height: 45px;
+    margin-right: auto;
+    border-radius: 50%;
+}
+
+.navbar .logo {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-right: auto;
+}
+
+.navbar .logo h3 {
+    color: #E7D8C9;
+    cursor: pointer;
+    margin: auto;
+}
+
+.logo h3:hover {
+    color: #e1b87a;
+    transition: 0.3s ease;
+}
+
+/* Navbar Links */
+.navbar a {
+    color: #E7D8C9;
+    text-decoration: none;
+    padding: 8px 15px;
+    font-weight: 500px;
+    transition: 0.3s ease;
+}
+
+.navbar a:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+}
+
+.greet {
+    text-align: center;
+    cursor: pointer;
+}
+
+.greet:hover {
+    color: #e1b87a;
+    transition: 0.3s ease;
+}
+
+/* Title */
+h1 {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Login Box */
+.LoginBox {
+    background-color: rgba(99, 72, 63, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 30px;
+    margin: 80px auto;
+    width: 330px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.LoginBox input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: none;
+}
+
+.LoginBox button {
+    padding: 8px 18px;       /* Default Button Size */
+    margin-top: 10px;
+    background-color: #E6C89C;
+    color: #4B2E05;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.LoginBox button:hover {
+    background-color: #e1b87a;
+}
+
+/* Links Under Form */
+.LoginBox a {
+    display: block;
+    margin-top: 12px;
+    color: #FFDDB0;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.LoginBox a:hover {
+    color: white;
+    text-decoration: underline;
+}

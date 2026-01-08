@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url("Cafe Ember Logo - Artisan Minimalism with Charcoal (2).png") no-repeat center center fixed;/* Page Background */
+    background-size: cover;
+    color: #F5E6CA;
+}
+
+.navabr-home {
+    display: flex;
+    justify-content: flex-end;
+    background-color: rgba(110, 84, 79, 0.85);
+    padding: 12px 20px;
+    backdrop-filter: blur(5px);
+}

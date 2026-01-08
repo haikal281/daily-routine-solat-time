@@ -1,0 +1,51 @@
+body {
+    margin: 0%;
+    padding: 0%;
+    font-family: Arial, sans-serif;
+    background-image: url("Cafe Ember Logo - Artisan Minimalism with Charcoal (2).png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.navbar-create {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: rgba(110, 84, 79, 0.85);
+    padding: 12px;
+    gap: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.logo-create-1 {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-right: auto;
+}
+
+.logo-create-2 {
+    height: 45px;
+    border-radius: 50%;
+}
+
+.navbar-create h3 {
+    color: #E7D8C9;
+    cursor: pointer;
+    margin: auto;
+}
+
+.navbar-create h3:hover {
+    color: #e1b87a;
+    transition: 0.3s ease;
+}
+
+.sign-up {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
