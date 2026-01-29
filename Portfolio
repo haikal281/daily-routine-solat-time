@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="Portfolio.css">
+</head>
+
+<body>
+
+    <!-- Main page content -->
+    <main id="main-section">
+
+        <!-- Portfolio card -->
+        <article id="computer">
+
+            <!-- Header area -->
+            <header id="header-btn">
+                <div id="header">
+                    <!-- Left profile area -->
+                    <div id="header-Left">
+                        <img src="Screenshot (405).png" alt="Adam Haikal Portfolio logo">
+                        <a href="" id="link-1">Profile</a>
+                    </div>
+                    <!-- Navigation links -->
+                    <nav id="link-Profile">
+                        <a href="" id="link-2">Home</a>
+                        <a href="" id="link-3">Contact</a> 
+                        <a href="" id="link-4">Project</a>
+                        <a href="" id="link-5">Tools</a>
+                    </nav>
+                </div>
+            </header>
+            <!-- Main content section -->
+            <section>
+                <h1 id="home">Home</h1>
+                <p class="text">
+                    <i>Hi, I'm Adam Haikal!</i><br>
+                    <span class="large-text">I'm a Software Developer.</span>
+                </p>
+            </section>
+        </article>
+    </main>
+</body>
+</html>
